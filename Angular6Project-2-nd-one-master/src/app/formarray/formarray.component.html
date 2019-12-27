@@ -1,0 +1,54 @@
+<p>
+  Formarray works! and Route param
+</p>
+<form [formGroup]="empForm" (ngSubmit)="submit()">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"></h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="form-group">
+      <label formArrayName="orders" *ngFor="let order of empForm.controls.orders.controls; let i = index">
+        <input type="checkbox" [formControlName]="i">
+        {{orders[i].name}}
+      </label>
+    </div>
+    <!--<div class="form-group">
+      <label class="col-sm-2 control-label" for="phone">Phone:</label>
+      <div class="col-sm-8">
+        <input id="phone" formControlName="phone" type="text" class="form-control">
+      </div>
+    </div>-->
+
+    <div *ngIf="!empForm.valid">At least one order must be selected</div>
+  </div>
+
+  <div class="panel-footer">
+    <div class="btn-toolbar">
+      <button class="btn btn-primary" type="submit">Save</button>
+      <button class="btn btn-primary" type="button" (click)="revert()">Reset</button>
+    </div>
+  </div>
+
+</div>
+
+</form>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of orderItems">
+    <td>{{item.id}}</td>
+    <td>{{item.name}}</td>
+    <td><button class="btn btn-danger" (click)="editItem(item)" style="margin-left: 20px;"> Edit</button></td>
+    <td><a [routerLink]="['/formarrayedit', item.id]">Goto FromarrayEdit</a></td>
+  </tr>
+  </tbody>
+</table>

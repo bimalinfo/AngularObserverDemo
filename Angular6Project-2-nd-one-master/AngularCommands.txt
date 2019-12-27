@@ -1,0 +1,54 @@
+Install Node.js, https://nodejs.org/en/download
+node -v
+npm -v
+
+install angular CLI
+npm install -g @angular/cli(For first time installation)
+npm install -g @angular/cli@latest(To upgrade)
+
+ng -v
+
+To set Boot strap and jquery
+----------------------------------
+D:\ANGULAR\Angular6ProjectForWS2>npm install bootstrap@3 jquery --save
+
+Bootstrap and jquery configuration
+----------------------------------------
+go to angular.json and modify following sections
+
+"styles": [
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],
+            "scripts": [
+            "node_modules/jquery/dist/jquery.min.js",
+            "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
+            "es5BrowserSupport": true
+          },
+
+ng new Angular6Project --spec=false
+Change to Angular6Project and execute following commands
+
+ng serve --open
+ng generate component employee\create-emp --spec=false --flat=true
+ng generate class employee\employee --spec=false --flat=true
+ng generate service employee\employee --spec=false --flat=true
+
+To call service 
+----------------
+create a file named 'proxyconfig.json' in root folder Angular6Project and copy fllowing code to it
+
+{
+	"/api": {
+		"target":"http://localhost:2222/",
+		"secure":false,
+		"changeOrigin":true
+	}
+}
+
+go to  package.json and modify 
+"start": "ng serve --proxy-config proxyconfig.json",
+
+npm start
+ng s --host 0.0.0.0 --port 3000

@@ -1,0 +1,96 @@
+
+<form [formGroup]="empForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Create Employee</h3>
+		</div>
+		
+		<div class="panel-body">
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="name">Full Name:</label>
+				<div class="col-sm-8">
+					<input id="name" formControlName="name" type="text" class="form-control">
+				</div>
+			</div>
+				
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="email">Email:</label>
+				<div class="col-sm-8">
+					<input id="email" formControlName="email" type="text" class="form-control">
+          <span class="help-block" *ngIf="empForm.get('email').hasError('required') && empForm.get('email').touched">
+            Email is required
+          </span>
+          <span class="help-block" *ngIf="empForm.get('email').hasError('emailValid') && empForm.get('email').touched">
+            Email is Invalid
+          </span>
+				</div>
+			</div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="age">Age:</label>
+        <div class="col-sm-8">
+          <input id="age" formControlName="age" type="text" class="form-control">
+          <span class="help-block" *ngIf="empForm.get('age').hasError('required') && empForm.get('age').touched">
+            Age is required
+          </span>
+          <span class="help-block" *ngIf="empForm.get('age').hasError('ageRange') && empForm.get('age').touched">
+            Age is Invalid or Out of range
+          </span>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="phone">Phone:</label>
+        <div class="col-sm-8">
+          <input id="phone" formControlName="phone" type="text" class="form-control">
+          <span class="alert  alert-danger" *ngIf="empForm.get('phone').hasError('required') && empForm.get('phone').touched">
+            Phone is required
+          </span>
+          <span class="alert  alert-danger" *ngIf="empForm.get('phone').hasError('invalidPhoneNumber') && empForm.get('phone').touched">
+            Invalid Phone number
+          </span>
+
+        </div>
+      </div>
+
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="countryList">Country:</label>
+				<div class="col-sm-8">
+					<select id="countryList" formControlName="countryList" class="form-control">
+						<option [value]="country" *ngFor="let country of countries">{{country}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-footer">
+			<div class="btn-toolbar">
+				<button class="btn btn-primary" [disabled]='empForm.invalid'  type="submit">Save</button>
+        <button class="btn btn-primary" type="button" (click)="revert()">Reset</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="2">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let emp of allemployee">
+	  <td>{{emp.id}}</td>
+      <td>{{emp.name}}</td>
+      <td>{{emp.email}}</td>
+     
+      <td><button class="btn btn-danger" (click)="deleteEmployee(emp)"> Delete</button>
+      <td><button class="btn btn-danger" (click)="editEmployee(emp)" style="margin-left: 20px;"> Edit</button></td>  
+    </tr>
+    </tbody>
+</table>

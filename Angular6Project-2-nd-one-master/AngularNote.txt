@@ -1,0 +1,65 @@
+//this.router.navigate(['list']);
+//this.router.navigate(['create']);
+
+Use of params
+
+public firstName: string;
+
+ngOnInit() {
+    this.route.params.subscribe(params => {
+        this.UserId = params['id'];
+
+        this.objectService.get(this.UserId).subscribe((ret: user) => {
+            if (user) {
+                this.firstName = user.firstName;
+            }
+        });
+    });
+}
+
+// Subscription or life cycle
+import { Subscription } from "rxjs";
+
+public firstName: string;
+
+private userSub: Subscription;
+
+ngOnInit() {
+    this.route.params.subscribe(params => {
+        this.UserId = params['id'];
+
+        this.userSub = this.objectService.get(this.UserId).subscribe((ret: user) => {
+            if (user) {
+                this.firstName = user.firstName;
+            }
+        });
+    });
+}
+
+public ngOnDestroy() {
+    this.userSub.unsubscribe();
+}
+
+this.emps = [
+  		{
+		 	"fullName": "Bimal1",
+	      	"email": "bimal1@gmail.com",
+	      	"id": "1",
+	      	"name": "Bimal1",
+	      	"deptid": "1"
+     	},
+     	{
+		 	"fullName": "Bimal2",
+	      	"email": "bimal2@gmail.com",
+	      	"id": "2",
+	      	"name": "Bimal2",
+	      	"deptid": "2"
+     	},
+     	{
+		 	"fullName": "Bimal3",
+	      	"email": "bimal3@gmail.com",
+	      	"id": "3",
+	      	"name": "Bimal3",
+	      	"deptid": "3"
+     	}
+     ]
